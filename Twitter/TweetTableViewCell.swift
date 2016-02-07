@@ -31,6 +31,8 @@ class TweetTableViewCell: UITableViewCell {
                         
             favoriteCountLabel.text = String(tweet.favouriteCount!)
             favoriteImageView.image = UIImage(named: "favorite")
+            favoriteImageView.layer.cornerRadius = 3
+            favoriteImageView.clipsToBounds = true
             
             tweetTextLabel.text = tweet.text!
             tweetTextLabel.sizeToFit()
@@ -39,6 +41,7 @@ class TweetTableViewCell: UITableViewCell {
     
             profileImageView.setImageWithURL((tweet.user?.profileImageUrl)!)
             profileImageView.layer.cornerRadius = 6
+            profileImageView.clipsToBounds = true
             
             nameLabel.text = tweet.user!.name!
             userNameLabel.text = "@"+(tweet.user?.screenname)!
