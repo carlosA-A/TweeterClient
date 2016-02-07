@@ -32,9 +32,9 @@ class TwitterClient: BDBOAuth1SessionManager {
             
             var tweets = Tweet.tweetsWithArray(response as! [NSDictionary])
             
-            /*for tweet in tweets{
+            for tweet in tweets{
                 print("text \(tweet.text), created \(tweet.createdAt)")
-            }*/
+            }
             completion(tweets: tweets, error: nil )
             
             }, failure: { (operation: NSURLSessionDataTask?, error: NSError!) -> Void in
