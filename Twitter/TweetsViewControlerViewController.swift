@@ -16,6 +16,8 @@ class TweetsViewControlerViewController: UIViewController,UITableViewDataSource,
     
     @IBOutlet weak var userNameLabel: UILabel!
     
+    @IBAction func onRetweet(sender: AnyObject) {
+    }
     
     
     override func viewDidLoad() {
@@ -63,6 +65,11 @@ class TweetsViewControlerViewController: UIViewController,UITableViewDataSource,
         
         
         return cell
+    }
+    
+    func onRetweet(){
+    
+    
     }
 
 

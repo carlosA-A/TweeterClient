@@ -98,18 +98,37 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="highlightedColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="retweet count" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4fq-mi-w9F">
-                                                    <rect key="frame" x="217" y="126" width="95" height="18"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="retweet count" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4fq-mi-w9F">
+                                                    <rect key="frame" x="270" y="126" width="42" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ekk-sS-xcR">
+                                                    <rect key="frame" x="230" y="119" width="32" height="32"/>
+                                                    <gestureRecognizers/>
+                                                    <connections>
+                                                        <outletCollection property="gestureRecognizers" destination="SQd-GI-Caa" appends="YES" id="Qrn-sq-aYy"/>
+                                                    </connections>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Favorite" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="caF-ef-DaV">
+                                                    <rect key="frame" x="180" y="125" width="42" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="D9w-ql-2aX">
+                                                    <rect key="frame" x="138" y="119" width="34" height="32"/>
+                                                </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="favoriteCountLabel" destination="caF-ef-DaV" id="7Uv-TX-GUG"/>
+                                            <outlet property="favoriteImageView" destination="D9w-ql-2aX" id="GvN-29-qAP"/>
                                             <outlet property="nameLabel" destination="b0e-ci-Yz9" id="Jze-fi-eX0"/>
                                             <outlet property="profileImageView" destination="Efv-uO-NJ8" id="kVr-BD-cci"/>
                                             <outlet property="retweetCountLabel" destination="4fq-mi-w9F" id="Mak-ua-PR0"/>
+                                            <outlet property="retweetImageView" destination="Ekk-sS-xcR" id="Gy7-In-Zjj"/>
                                             <outlet property="timeStampLabel" destination="a1M-XR-51n" id="0XF-e0-8NG"/>
                                             <outlet property="tweetTextLabel" destination="egu-c7-9Nz" id="k9m-po-r3A"/>
                                             <outlet property="userNameLabel" destination="3Uw-J0-36n" id="goQ-NM-cXt"/>
@@ -126,6 +145,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3pv-Gp-Fxn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="SQd-GI-Caa">
+                    <connections>
+                        <action selector="onRetweet:" destination="SAs-9s-f82" id="4Eb-OB-yyx"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="548" y="301"/>
         </scene>
