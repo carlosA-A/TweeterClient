@@ -12,11 +12,16 @@ class TweetTableViewCell: UITableViewCell {
 
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var timeStampLabel: UILabel!
+    
+    @IBOutlet weak var retweetCountLabel: UILabel!
+    
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var tweetTextLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
         var tweet: Tweet! {
         didSet {
+            let retweet = String(tweet.retweetCount!)
+            retweetCountLabel.text = retweet
             
             var dateFormatter = NSDateFormatter()
 
@@ -30,7 +35,7 @@ class TweetTableViewCell: UITableViewCell {
             
             nameLabel.text = tweet.user!.name!
             userNameLabel.text = "@"+(tweet.user?.screenname)!
-            dateFormatter.dateFormat = "EEE MMM d HH:mm y"
+            dateFormatter.dateFormat = "MMM d HH:mm y"
             var dateString = dateFormatter.stringFromDate(tweet.createdAt!)
             
             timeStampLabel.text = dateString        }

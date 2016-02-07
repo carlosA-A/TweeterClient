@@ -93,16 +93,23 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="timestamp" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a1M-XR-51n">
-                                                    <rect key="frame" x="8" y="127" width="241" height="17"/>
+                                                    <rect key="frame" x="8" y="127" width="185" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="highlightedColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="retweet count" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4fq-mi-w9F">
+                                                    <rect key="frame" x="217" y="126" width="95" height="18"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="nameLabel" destination="b0e-ci-Yz9" id="Jze-fi-eX0"/>
                                             <outlet property="profileImageView" destination="Efv-uO-NJ8" id="kVr-BD-cci"/>
+                                            <outlet property="retweetCountLabel" destination="4fq-mi-w9F" id="Mak-ua-PR0"/>
                                             <outlet property="timeStampLabel" destination="a1M-XR-51n" id="0XF-e0-8NG"/>
                                             <outlet property="tweetTextLabel" destination="egu-c7-9Nz" id="k9m-po-r3A"/>
                                             <outlet property="userNameLabel" destination="3Uw-J0-36n" id="goQ-NM-cXt"/>
