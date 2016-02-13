@@ -15,29 +15,28 @@ class TweetTableViewCell: UITableViewCell {
     
     @IBOutlet weak var retweetCountLabel: UILabel!
     
-    @IBOutlet weak var favoriteImageView: UIImageView!
+    
     @IBOutlet weak var favoriteCountLabel: UILabel!
-    @IBOutlet weak var retweetImageView: UIImageView!
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var tweetTextLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
+    var tweets: [Tweet]?
+    
         var tweet: Tweet! {
         didSet {
-            let retweet = String(tweet.retweetCount!)
-            retweetCountLabel.text = retweet
+            
+            
+            retweetCountLabel.text = "\(tweet.retweetCount!)"
             
             var dateFormatter = NSDateFormatter()
             
                         
             favoriteCountLabel.text = String(tweet.favouriteCount!)
-            favoriteImageView.image = UIImage(named: "favorite")
-            favoriteImageView.layer.cornerRadius = 3
-            favoriteImageView.clipsToBounds = true
+            
             
             tweetTextLabel.text = tweet.text!
             tweetTextLabel.sizeToFit()
         
-            retweetImageView.image = UIImage(named: "retweet")
     
             profileImageView.setImageWithURL((tweet.user?.profileImageUrl)!)
             profileImageView.layer.cornerRadius = 6
@@ -61,6 +60,36 @@ class TweetTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    @IBAction func retweetButton(sender: AnyObject) {
+        
+        onRetweet()
+    }
+    func onRetweet(){
+        //retweetCountLabel.text = "\(tweet.retweetCount!+1)"
+        var id = tweet?.retweetId
+        var idDictionary = [id!: id!] as NSDictionary
+        
+        TwitterClient.sharedInstance.homeTimelineWithParams(nil) { (tweets, error) -> () in
+            self.tweets = tweets
+        }
+        id = self.tweet?.retweetId
+        
+        if !tweet.retweetBool!{
+            retweetCountLabel.text = "\(tweet.retweetCount!+1)"
+            TwitterClient.sharedInstance.retweetWithParams(idDictionary) { (id, error) -> () in
+                
+            }
+            
+        }else{}
+        
+        
+        
+        // TwitterClient.sharedInstance.retweetWithParams(nil){
+        // (id, error)-> () in
+
+        
+    
     }
 
 }

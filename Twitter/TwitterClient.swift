@@ -26,15 +26,36 @@ class TwitterClient: BDBOAuth1SessionManager {
     }
     
     
+    
+    
+    func retweetWithParams(params:NSDictionary?,completion: (id:Int?,error : NSError?) ->()){
+    
+        let id = params!["id"] as! Int
+        
+        TwitterClient.sharedInstance.POST("1.1/statuses/retweet/\(id).json", parameters: params, progress: { (operation : NSProgress) -> Void in
+        
+        
+        
+            }, success: { (operation: NSURLSessionDataTask, response: AnyObject?) -> Void in
+                completion(id:id,error:nil)
+            
+            
+            }) { (operation: NSURLSessionDataTask?, error: NSError) -> Void in
+                completion(id:nil, error: error)
+        }
+    
+    
+    }
+    
     func homeTimelineWithParams(params:NSDictionary?,completion: (tweets:[Tweet]?,error : NSError?) ->()){
     
         TwitterClient.sharedInstance.GET("1.1/statuses/home_timeline.json", parameters: params, success: { (operation : NSURLSessionDataTask, response: AnyObject?) -> Void in
             
             var tweets = Tweet.tweetsWithArray(response as! [NSDictionary])
             
-            for tweet in tweets{
-                print("text \(tweet.text), created \(tweet.createdAt)")
-            }
+           // for tweet in tweets{
+            //    print("text \(tweet.text), created \(tweet.createdAt)")
+            //}
             completion(tweets: tweets, error: nil )
             
             }, failure: { (operation: NSURLSessionDataTask?, error: NSError!) -> Void in

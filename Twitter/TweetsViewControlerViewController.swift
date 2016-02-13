@@ -10,13 +10,19 @@ import UIKit
 
 class TweetsViewControlerViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
     
+    var retweetBool : Bool?
+    
     var tweets: [Tweet]?
+    var tweet: Tweet?
+
     
     @IBOutlet weak var tableView: UITableView!
     
     @IBOutlet weak var userNameLabel: UILabel!
     
     @IBAction func onRetweet(sender: AnyObject) {
+        
+                
     }
     
     
@@ -38,7 +44,9 @@ class TweetsViewControlerViewController: UIViewController,UITableViewDataSource,
         
         
     }
-
+    
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -60,7 +68,9 @@ class TweetsViewControlerViewController: UIViewController,UITableViewDataSource,
         
         
         
-        cell.tweet = tweets![indexPath.row]        
+        cell.tweet = tweets![indexPath.row]
+        
+       
         
         
         
@@ -68,7 +78,11 @@ class TweetsViewControlerViewController: UIViewController,UITableViewDataSource,
     }
     
     func onRetweet(){
-    
+        
+            
+            
+            
+        }
     
     }
 
@@ -83,4 +97,4 @@ class TweetsViewControlerViewController: UIViewController,UITableViewDataSource,
     }
     */
 
-}
+
