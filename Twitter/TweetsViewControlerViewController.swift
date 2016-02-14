@@ -14,11 +14,12 @@ class TweetsViewControlerViewController: UIViewController,UITableViewDataSource,
     
     var tweets: [Tweet]?
     var tweet: Tweet?
+    
 
     
     @IBOutlet weak var tableView: UITableView!
     
-    @IBOutlet weak var userNameLabel: UILabel!
+    
     
     @IBAction func onRetweet(sender: AnyObject) {
         
@@ -29,14 +30,14 @@ class TweetsViewControlerViewController: UIViewController,UITableViewDataSource,
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        userNameLabel.text = "@" + (User.currentUser?.name)!
-
         // Do any additional setup after loading the view.
         
         tableView.delegate = self
         tableView.dataSource = self
         TwitterClient.sharedInstance.homeTimelineWithParams(nil) { (tweets, error) -> () in
             self.tweets = tweets
+            
+            
             self.tableView.reloadData()
             
             
@@ -70,31 +71,45 @@ class TweetsViewControlerViewController: UIViewController,UITableViewDataSource,
         
         cell.tweet = tweets![indexPath.row]
         
-       
         
         
         
         return cell
     }
     
-    func onRetweet(){
-        
-            
-            
-            
-        }
     
-    }
+    
 
 
-    /*
+
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
+
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-    }
-    */
+        let cell = sender as! UITableViewCell
+        let indexPath = tableView.indexPathForCell(cell)
+        let tweet = self.tweets![indexPath!.row]
+        let detailsViewController = segue.destinationViewController as! TweetViewControlerViewController
+        
+        detailsViewController.tweet = tweet
+        }
+
+    
+}
+
+/*
+if let cell = sender as? UITableViewCell{
+let indexPath = TableView.indexPathForCell(cell)
+let movie = movies![indexPath!.row]
+let detailViewController = segue.destinationViewController as! DetailViewController
+detailViewController.movie = movie
+
+*/
+
+
 
 

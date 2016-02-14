@@ -27,25 +27,59 @@ class TwitterClient: BDBOAuth1SessionManager {
     
     
     
+        
+    func favoriteWithParams(params : NSDictionary,completion:(id: Int?, error:NSError?)->())
+    {
+        POST("1.1/favorites/create.json", parameters: params, success: { (operation : NSURLSessionDataTask, response: AnyObject?) -> Void in
+        let id = params["id"] as! Int
+            completion(id:id, error: nil)
+            
+            }) { (operation: NSURLSessionDataTask?, error: NSError)-> Void in
+                completion(id:nil, error: error)
+        
+        
+        }}
     
-    func retweetWithParams(params:NSDictionary?,completion: (id:Int?,error : NSError?) ->()){
+
+
     
+    func retweetWithParams(params: NSDictionary?, completion: (id: Int?, error: NSError?) -> ()) {
         let id = params!["id"] as! Int
         
-        TwitterClient.sharedInstance.POST("1.1/statuses/retweet/\(id).json", parameters: params, progress: { (operation : NSProgress) -> Void in
         
         
-        
+        POST("1.1/statuses/retweet/\(id).json", parameters: params, progress: { (operation: NSProgress) -> Void in
+            
             }, success: { (operation: NSURLSessionDataTask, response: AnyObject?) -> Void in
-                completion(id:id,error:nil)
-            
-            
+                let id = params!["id"] as? Int
+                //print("retweet response: \(response)")
+                completion(id: id, error: nil)
             }) { (operation: NSURLSessionDataTask?, error: NSError) -> Void in
-                completion(id:nil, error: error)
+                //print("retweet error: \(error)")
+                completion(id: nil, error: error)
         }
-    
-    
     }
+    
+    func getTweetWithParams(params: NSDictionary?, completion: (tweet: Tweet?, error: NSError?) -> ()) {
+        let id = params!["id"] as! Int
+        print(id)
+        GET("1.1/statuses/show/\(id).json", parameters: params, success: { (operation: NSURLSessionDataTask, response: AnyObject?) -> Void in
+            
+            let tweet = Tweet(dictionary: response as! NSDictionary)
+            
+            print(response as! NSDictionary)
+            completion(tweet: tweet, error: nil)
+            //print("tweet \(response)")
+            }, failure: { (operation: NSURLSessionDataTask?, error: NSError) -> Void in
+                print("failure to get tweet")
+                
+                completion(tweet: nil, error: error)
+        })
+        
+        
+        
+    }
+
     
     func homeTimelineWithParams(params:NSDictionary?,completion: (tweets:[Tweet]?,error : NSError?) ->()){
     

@@ -17,7 +17,8 @@ class Tweet: NSObject {
     var retweetCount: Int?
     var favouriteCount : Int?
     var retweetBool : Bool?
-    var retweetId: Int?
+    var id: Int?
+    var favoriteBool: Bool?
     
     init(dictionary : NSDictionary) {
         user = User(dictionary: (dictionary["user"] as? NSDictionary)!)
@@ -26,8 +27,10 @@ class Tweet: NSObject {
         retweetCount = dictionary["retweet_count"] as! Int
         
         favouriteCount = dictionary["favorite_count"] as! Int
+        favoriteBool = dictionary["favorited"] as! Bool
+        
         retweetBool = dictionary["retweeted"] as! Bool
-        retweetId = dictionary["id"] as! Int
+        id = dictionary["id"] as! Int
         
         var formatter = NSDateFormatter()
         

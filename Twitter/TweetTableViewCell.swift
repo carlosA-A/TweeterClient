@@ -15,16 +15,22 @@ class TweetTableViewCell: UITableViewCell {
     
     @IBOutlet weak var retweetCountLabel: UILabel!
     
+    @IBOutlet weak var favoriteIcon: UIButton!
     
+    @IBOutlet weak var retweetIcon: UIButton!
     @IBOutlet weak var favoriteCountLabel: UILabel!
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var tweetTextLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
     var tweets: [Tweet]?
+    var retweetBool : Bool?
+    var favoriteBool: Bool?
+
     
         var tweet: Tweet! {
         didSet {
             
+            //profileImageView.userInteractionEnabled = true
             
             retweetCountLabel.text = "\(tweet.retweetCount!)"
             
@@ -33,6 +39,11 @@ class TweetTableViewCell: UITableViewCell {
                         
             favoriteCountLabel.text = String(tweet.favouriteCount!)
             
+            retweetBool = tweet.retweetBool
+            
+            retweetIcon = nil
+            
+           
             
             tweetTextLabel.text = tweet.text!
             tweetTextLabel.sizeToFit()
@@ -61,28 +72,102 @@ class TweetTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    @IBAction func favoriteButton(sender: AnyObject) {
+        onFavorite()
+    }
     @IBAction func retweetButton(sender: AnyObject) {
         
         onRetweet()
     }
-    func onRetweet(){
-        //retweetCountLabel.text = "\(tweet.retweetCount!+1)"
-        var id = tweet?.retweetId
-        var idDictionary = [id!: id!] as NSDictionary
+    //Function for when favorite button is pressed
+    func onFavorite(){
+        var id = tweet.id
         
-        TwitterClient.sharedInstance.homeTimelineWithParams(nil) { (tweets, error) -> () in
-            self.tweets = tweets
+        let idDictionary = ["id": id!]
+        
+        TwitterClient.sharedInstance.getTweetWithParams(idDictionary) { (tweet, error) -> () in
+            self.tweet! = tweet!
+            
         }
-        id = self.tweet?.retweetId
         
-        if !tweet.retweetBool!{
-            retweetCountLabel.text = "\(tweet.retweetCount!+1)"
+        id = self.tweet!.id
+        if !tweet.favoriteBool! {
+            //var retweetCount = Int(self.retweetCountLabel.text!)
+            
+            
+            tweet.favouriteCount = tweet.favouriteCount! + 1
+            
+            self.favoriteCountLabel.text = "\(tweet.favouriteCount!)"
+            
+            self.favoriteBool = !tweet.favoriteBool!
+            
+            
+            TwitterClient.sharedInstance.favoriteWithParams(idDictionary, completion: { (id, error) -> () in
+                
+            })
+            favoriteIcon.setImage(UIImage(named: "like-action-on"), forState: UIControlState.Normal)
+            
+        } else {
+            
+            
+            // self.retweetCountLabel.text = "\(retweetCount!)"
+            
+            
+            
+            
+        }
+    }
+
+    
+    
+    //Function for when retweet button is pressed
+
+    func onRetweet(){
+        var id = tweet.id
+        
+        let idDictionary = ["id": id!]
+        
+        TwitterClient.sharedInstance.getTweetWithParams(idDictionary) { (tweet, error) -> () in
+            self.tweet! = tweet!
+            
+        }
+        
+        id = self.tweet!.id
+        
+        
+        if !tweet.retweetBool! {
+            //var retweetCount = Int(self.retweetCountLabel.text!)
+            
+            
+            tweet.retweetCount = tweet.retweetCount! + 1
+           
+            self.retweetCountLabel.text = "\(tweet.retweetCount!)"
+            
+            self.retweetBool = !tweet.retweetBool!
+            
+           
+            
             TwitterClient.sharedInstance.retweetWithParams(idDictionary) { (id, error) -> () in
                 
             }
             
-        }else{}
+            
+             //retweetIcon.setImage(UIImage(named: "retweet-pressed"), forState: UIControlState.Normal)
+            
+            
+        } else {
+            
+            
+           // self.retweetCountLabel.text = "\(retweetCount!)"
+            
+            
+            
+                
+        }
+        }
         
+        
+    }
         
         
         // TwitterClient.sharedInstance.retweetWithParams(nil){
@@ -90,6 +175,6 @@ class TweetTableViewCell: UITableViewCell {
 
         
     
-    }
+    
 
-}
+
