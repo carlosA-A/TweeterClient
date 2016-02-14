@@ -64,10 +64,15 @@ class TweetViewControlerViewController: UIViewController {
         //let cell = sender
         let tweet = self.tweet!
         
-        let detailsViewController = segue.destinationViewController as! UserDetailViewController
+        if let detailsViewController = segue.destinationViewController as? UserDetailViewController{
         
         detailsViewController.tweet = tweet
-        
+        }
+        else if let detailsViewController = segue.destinationViewController as? ComposeTweetViewController{
+            
+            detailsViewController.tweet = tweet
+        }
+
     }
     
 

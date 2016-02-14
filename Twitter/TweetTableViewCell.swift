@@ -25,12 +25,13 @@ class TweetTableViewCell: UITableViewCell {
     var tweets: [Tweet]?
     var retweetBool : Bool?
     var favoriteBool: Bool?
-
+    
+   
     
         var tweet: Tweet! {
         didSet {
             
-            //profileImageView.userInteractionEnabled = true
+            profileImageView.userInteractionEnabled = true
             
             retweetCountLabel.text = "\(tweet.retweetCount!)"
             
@@ -55,7 +56,7 @@ class TweetTableViewCell: UITableViewCell {
             
             nameLabel.text = tweet.user!.name!
             userNameLabel.text = "@"+(tweet.user?.screenname)!
-            dateFormatter.dateFormat = "MMM d HH:mm y"
+            dateFormatter.dateFormat = "MMM d HH:mm"
             var dateString = dateFormatter.stringFromDate(tweet.createdAt!)
             
             timeStampLabel.text = dateString        }
@@ -143,7 +144,7 @@ class TweetTableViewCell: UITableViewCell {
            
             self.retweetCountLabel.text = "\(tweet.retweetCount!)"
             
-            self.retweetBool = !tweet.retweetBool!
+           // self.retweetBool = !tweet.retweetBool!
             
            
             
@@ -165,8 +166,24 @@ class TweetTableViewCell: UITableViewCell {
                 
         }
         }
+    func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+        //let cell = sender
+        let tweet = self.tweet!
         
+        if let detailsViewController = segue.destinationViewController as? UserDetailViewController{
+            
+            detailsViewController.tweet = tweet
+        }
+        else if let detailsViewController = segue.destinationViewController as? ComposeTweetViewController{
+            
+            detailsViewController.tweet = tweet
+        }
         
+    }
+
+    
     }
         
         

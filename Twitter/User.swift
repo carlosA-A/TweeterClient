@@ -21,6 +21,7 @@ class User: NSObject {
     var bannerImageUrl: String?
     var followerCount: Int?
     var followingCount: Int?
+    var tweetCount: Int?
      
         
         
@@ -41,6 +42,7 @@ class User: NSObject {
         
         followerCount = dictionary["followers_count"] as? Int
         followingCount = dictionary["friends_count"] as? Int
+        tweetCount = dictionary["statuses_count"] as? Int
         
     }
     

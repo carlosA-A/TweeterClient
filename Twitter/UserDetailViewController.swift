@@ -11,6 +11,7 @@ import UIKit
 class UserDetailViewController: UIViewController {
     
     var tweet: Tweet?
+    var user: User?
     
     @IBOutlet weak var followingCount: UILabel!
     @IBOutlet weak var followersCount: UILabel!
@@ -19,16 +20,33 @@ class UserDetailViewController: UIViewController {
     @IBOutlet weak var profilePictureImageView: UIImageView!
     @IBOutlet weak var realNameLabel: UILabel!
     @IBOutlet weak var backgroundImageImageView: UIImageView!
+    @IBOutlet weak var tweetCount: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         realNameLabel.text = tweet?.user?.name
+        if tweet != nil {
         userNameLabel.text = "@\((tweet?.user?.screenname)!)"
         profilePictureImageView.setImageWithURL((tweet?.user?.profileImageUrl)!)
         overviewLabel.text = tweet?.user?.tagline
         backgroundImageImageView.setImageWithURL(NSURL(string: (tweet?.user?.bannerImageUrl)!)! )
         followingCount.text = "\((tweet?.user?.followingCount)!)"
         followersCount.text = "\((tweet?.user?.followerCount)!)"
+            tweetCount.hidden = true
+        }
+        
+        else{
+            userNameLabel.text = User.currentUser?.name
+            followingCount.text = "\((User.currentUser?.followingCount)!)"
+            followersCount.text = "\((User.currentUser?.followerCount)!)"
+            profilePictureImageView.setImageWithURL((User.currentUser?.profileImageUrl)!)
+            overviewLabel.hidden = true
+            tweetCount.text = "\((User.currentUser?.tweetCount)!)"
+            
+            
+        
+        }
         
         // Do any additional setup after loading the view.
     }

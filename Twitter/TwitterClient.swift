@@ -26,7 +26,19 @@ class TwitterClient: BDBOAuth1SessionManager {
     }
     
     
-    
+    func tweetWithParams(params: NSDictionary?, completion: (status: String?, error: NSError?) -> ()) {
+        
+        POST("1.1/statuses/update.json", parameters: params, progress: {(operation: NSProgress) -> Void in }, success: { (operation: NSURLSessionDataTask, response: AnyObject?) -> Void in
+            let status = params!["status"] as! String
+            
+            
+            completion(status: status, error: nil)
+            
+            
+            }) { (operation: NSURLSessionDataTask?, error: NSError) -> Void in
+                print("not working")
+                completion(status: nil, error: error)
+        }}
         
     func favoriteWithParams(params : NSDictionary,completion:(id: Int?, error:NSError?)->())
     {

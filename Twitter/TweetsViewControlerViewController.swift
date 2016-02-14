@@ -10,10 +10,13 @@ import UIKit
 
 class TweetsViewControlerViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
     
+    @IBOutlet weak var userNameButton: UIButton!
     var retweetBool : Bool?
     
     var tweets: [Tweet]?
     var tweet: Tweet?
+    var user: User?
+    var refreshControl : UIRefreshControl!
     
 
     
@@ -31,6 +34,7 @@ class TweetsViewControlerViewController: UIViewController,UITableViewDataSource,
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+        userNameButton.setTitle("\((User.currentUser?.name)!)", forState: UIControlState.Normal)
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -87,19 +91,35 @@ class TweetsViewControlerViewController: UIViewController,UITableViewDataSource,
     // In a storyboard-based application, you will often want to do a little preparation before navigation
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        //let senderCell = sender!.superview!!.superview!
         
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        let cell = sender as! UITableViewCell
+        if let cell = sender as? UITableViewCell{
+            
         let indexPath = tableView.indexPathForCell(cell)
         let tweet = self.tweets![indexPath!.row]
         let detailsViewController = segue.destinationViewController as! TweetViewControlerViewController
         
+            detailsViewController.tweet = tweet}
+        
+        
+        
+        
+        /* if let cell = sender as? UITableViewCell{
+            
+            let indexPath = tableView.indexPathForCell(cell)
+            let tweet = self.tweets![indexPath!.row]
+        
+        let detailsViewController = segue.destinationViewController as! UserDetailViewController
+        
         detailsViewController.tweet = tweet
-        }
+        }*/
+    }
 
     
 }
+
 
 /*
 if let cell = sender as? UITableViewCell{
